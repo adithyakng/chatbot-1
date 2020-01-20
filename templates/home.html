@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <title>Darwinbox</title>
+  <head>
+<!--    <link-->
+<!--      rel="shortcut icon"-->
+<!--      type="image/x-icon"-->
+<!--      href="https://user-images.githubusercontent.com/20112458/49326597-773b7280-f57a-11e8-853d-20ed61d18b0d.png"-->
+<!--      alt="Darwinbox"-->
+<!--    />-->
+   <!--<img src="C:\Users\dsprn\Desktop\dbox.png" alt="Dbox" width="42" height="42">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+      body {
+        font-family: monospace;
+      }
+      h1 {
+        background-color: blue;
+        display: inline-block;
+        font-size: 3em;
+        margin: 0;
+        padding: 14px;
+      }
+      h3 {
+        color: black;
+        font-size: 20px;
+        margin-top: 3px;
+        text-align: center;
+      }
+      .chatbox {
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        margin-top: 60px;
+      }
+
+      #userInput {
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        margin-top: 60px;
+      }
+      #tent-family: monospace;
+        font-size:xtInput {
+        width: 90%;
+        border: none;
+        border-bottom: 3px solid black;
+        fo 17px;
+      }
+      .userText {
+        color: white;
+        font-family: monospace;
+        font-size: 17px;
+        text-align: right;
+        line-height: 30px;
+      }
+      .userText span {
+        background-color: #808080;
+        padding: 10px;
+        border-radius: 2px;
+      }
+      .botText {
+        color: white;
+        font-family: monospace;
+        font-size: 17px;
+        text-align: left;
+        line-height: 30px;
+      }
+      .botText span {
+        background-color: #4169e1;
+        padding: 10px;
+        border-radius: 2px;
+      }
+      #tidbit {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 300px;
+      }
+      .boxed {
+        margin-left: auto;
+        margin-right: auto;
+        width: 78%;
+        margin-top: 60px;
+        border: 1px solid green;
+      }
+      .box {
+        border: 2px solid black;
+      }
+    </style>
+  </head>
+  <body onload="load_history()">
+
+    <img />
+    <center>
+      <h1>
+        <img
+            src="data:image/png;base64,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"
+            alt="Dabox"
+          style="width:500px;height:90px;"
+        />
+<!--        At your Service-->
+<!--          src="https://user-images.githubusercontent.com/20112458/49326597-773b7280-f57a-11e8-853d-20ed61d18b0d.png"-->
+
+
+      </h1>
+    </center>
+    <h3>
+    </h3>
+    <div class="box"></div>
+    <div class="boxed">
+      <div>
+          <div id="history" class="chatbox">
+
+          </div>
+        <div id="chatbox"  class="chatbox">
+          <p class="botText">
+            <span>Hi! I'm darwinbox chatbot.
+                       How may I help you!</span>
+          </p>
+        </div>
+        <div id="userInput">
+          <input id="textInput" type="text" name="msg" placeholder="Message" />
+        </div>
+      </div>
+      <script>
+        function load_history(){
+<!--          var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";-->
+<!--          $("#textInput").val("");-->
+<!--          $("#chatbox").append(userHtml);-->
+          $.get("/history").done(function(data) {
+<!--          console.log(data['bot']);-->
+
+              if (data ==""){
+               window.location.href="/";
+              return false;
+              }
+              else if(data !=" "){
+              for(var i=0; i<data['user'].length;i++)
+            {
+            var botHtml = '<p class="botText"><span>' + data['bot'][i] + "</span></p>";
+            $("#history").append(botHtml);
+             var botHtml = '<p class="userText"><span>' + data['user'][i] + "</span></p>";
+            $("#history").append(botHtml);
+            }
+            if(data["bot"].length !=0){
+            var botHtml = '<p class="botText"><span>' + data['bot'][data["bot"].length-1] + "</span></p>";
+            $("#history").append(botHtml);
+            }
+            }
+              });
+
+
+        }
+        function getBotResponse() {
+          var rawText = $("#textInput").val();
+          var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+          var data1={
+            "msg" : rawText
+          }
+          $("#textInput").val("");
+          $("#chatbox").append(userHtml);
+          document
+            .getElementById("userInput")
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+<!--          $.get("/get", ).done(function(data) {-->
+<!--              if (data ==""){-->
+<!--              window.location.href="/";-->
+<!--              return false;-->
+<!--              }-->
+<!--            console.log(data);-->
+<!--            var botHtml = '<p class="botText"><span>' + data.ans + "</span></p>";-->
+<!--            $("#chatbox").append(botHtml);-->
+<!--            document-->
+<!--              .getElementById("userInput")-->
+<!--              .scrollIntoView({ block: "start", behavior: "smooth" });-->
+
+<!--          });-->
+          var xhttp=new XMLHttpRequest();
+          xhttp.onreadystatechange=function(){
+          if(this.readyState==4 && this.status==200){
+          data=JSON.parse(this.responseText);
+          if (data["response"] ==""){
+              window.location.href="/";
+              return false;
+              }
+            console.log(data);
+            var botHtml = '<p class="botText"><span>' + data.ans + "</span></p>";
+            $("#chatbox").append(botHtml);
+            document
+              .getElementById("userInput")
+              .scrollIntoView({ block: "start", behavior: "smooth" });
+          }
+          };
+          xhttp.open("POST","/get",true);
+          xhttp.setRequestHeader("Content-Type","application/json");
+          xhttp.send(JSON.stringify(data1));
+
+        }
+        $("#textInput").keypress(function(e) {
+          if (e.which == 13) {
+
+            getBotResponse();
+          }
+        });
+      </script>
+    </div>
+  </body>
+</html>
